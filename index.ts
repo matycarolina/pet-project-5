@@ -1,9 +1,27 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express";
+import basicAuth from "express-basic-auth";
 
 const prisma = new PrismaClient();
 const app = express();
+
 app.use(express.json());
+
+app.use(
+  basicAuth({
+    authorizer: myAuthorizer,
+    authorizeAsync: true,
+  })
+);
+
+function myAuthorizer(username: string, password: string, cb: any) {
+  const user = prisma.user
+    .findFirst({
+      where: { email: String(username) },
+    })
+    .then((user) => cb(null, password === user?.password))
+    .catch((error) => cb(error, false));
+}
 
 //POSTS CRUD
 //* 1. Creates a new post (unpublished)
@@ -72,7 +90,6 @@ app.delete(`/post/:id`, async (req, res) => {
   });
 });
 
-//USERS CRUD
 //* 1. Creates a new user.
 app.post(`/user`, async (req, res) => {
   const result = await prisma.user.create({
@@ -99,6 +116,7 @@ app.get(`/user/:id`, async (req, res) => {
 //* 3. Fetches all users.
 app.get("/users", async (req, res) => {
   const users = await prisma.user.findMany();
+
   res.json({
     success: true,
     payload: users,

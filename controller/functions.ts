@@ -1,5 +1,10 @@
 import axios from "axios";
-export const BASE_URL = "http://localhost:3000/users";
+
+export const BASE_URL = `http://localhost:3000/users`;
+const username = "malesuada.id@hotmail.org";
+const password = "WFE64VTJ1BB";
+
+const token = Buffer.from(`${username}:${password}`, "utf8").toString("base64");
 
 interface User {
   id: number;
@@ -9,7 +14,11 @@ interface User {
 
 export const fill = async () => {
   try {
-    const response = await axios.get(BASE_URL);
+    const response = await axios.get(BASE_URL, {
+      headers: {
+        Authorization: `Basic ${token}`,
+      },
+    });
     const usersList = response.data.payload;
     return usersList;
   } catch (error) {
@@ -18,6 +27,7 @@ export const fill = async () => {
 };
 
 // Order Alphabetically by name. Show last name in capital letters
+
 // Show the users whose name start with "a", "b" and "c"
 // Show how many users have names that start with "a", "b" and "c" for each one
 
@@ -32,8 +42,14 @@ export const filterNames = (list: User[]) => {
 };
 
 export const countFilterNames = (list: User[]) => {
-  const aNames = list.filter((user: User) => user.name.match(/^a/i)).length;
-  const bNames = list.filter((user: User) => user.name.match(/^b/i)).length;
-  const cNames = list.filter((user: User) => user.name.match(/^c/i)).length;
-  return [aNames, bNames, cNames];
+  //fix with forEach or reduce, both with dicts
+
+  const letters: { [key: string]: number } = { a: 0, b: 0, c: 0 };
+  list.forEach((elem) => {
+    const i = elem.name.charAt(0).toLocaleLowerCase();
+    if (Object.keys(letters).includes(i)) {
+      letters[i]++;
+    }
+  });
+  return letters;
 };

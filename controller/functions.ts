@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const BASE_URL = `http://localhost:3000/users`;
+export const BASE_URL = `http://localhost:3001/users`;
 const username = "malesuada.id@hotmail.org";
 const password = "WFE64VTJ1BB";
 

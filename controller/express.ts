@@ -152,10 +152,21 @@ app.put("/user/:id", async (req, res) => {
 });
 
 //* 4. Fetches a specific user by ID.
-app.get(`/user/:id`, async (req, res) => {
-  const { id } = req.params;
+// app.get(`/user/:id`, async (req, res) => {
+//   const { id } = req.params;
+//   const user = await prisma.user.findUnique({
+//     where: { id: Number(id) },
+//   });
+//   res.json({
+//     success: true,
+//     payload: user,
+//   });
+// });
+
+app.get(`/user/:email`, async (req, res) => {
+  const { email } = req.params;
   const user = await prisma.user.findUnique({
-    where: { id: Number(id) },
+    where: { email: email },
   });
   res.json({
     success: true,
@@ -182,8 +193,8 @@ app.use((req, res, next) => {
   });
 });
 
-app.listen(3000, () =>
-  console.log("REST API server ready at: http://localhost:3000")
+app.listen(3001, () =>
+  console.log("REST API server ready at: http://localhost:3001")
 );
 
 //test API routes
@@ -195,6 +206,7 @@ app.listen(3000, () =>
 //* 2. Fetches a specific user by ID.
 
 // $ curl http://localhost:3000/user/1 -u <USERNAME>
+// $ curl http://localhost:3001/user/malesuada.id@hotmail.org -u "malesuada.id@hotmail.org:WFE64VTJ1BB"
 
 //* 3. Creates a new user.
 

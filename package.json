@@ -2,26 +2,36 @@
   "name": "pet-project-5",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "controller/express.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "prisma db push && ts-node prisma/seed/index.ts",
-    "start": "npx ts-node index.ts",
+    "start": "node --loader ts-node/esm src/controller/express.ts",
     "dev": "ts-node controller/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
-    "@types/node": "^18.7.13",
-    "prisma": "^4.2.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.8.2"
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.56"
   },
   "dependencies": {
     "@prisma/client": "^4.2.1",
     "axios": "^0.27.2",
-    "express": "^4.18.1"
-  }
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-basic-auth": "^1.2.1",
+    "prisma": "^4.2.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.2",
+    "uuid": "^8.3.2",
+    "web-vitals": "^2.1.4"
+  },
+  "type": "module"
 }

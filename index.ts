@@ -1,11 +1,17 @@
-import { fill, orderAlpha, filterNames, countFilterNames, BASE_URL } from "./functions";
+import {
+  fill,
+  orderAlpha,
+  filterNames,
+  countFilterNames,
+  BASE_URL,
+} from "./controller/functions";
 
 (function () {
   const list = fill().then((user) => {
     const usersAlpha = orderAlpha(user);
     const filteredNames = filterNames(user);
     const countNames = countFilterNames(user);
-    console.log(BASE_URL)
+    console.log(BASE_URL);
     console.log("Alphabetical users", usersAlpha);
     console.log("Users whose name start with a, b and c", filteredNames);
     console.log(

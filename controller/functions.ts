@@ -43,7 +43,7 @@ export const filterNames = (list: User[]) => {
 
 export const countFilterNames = (list: User[]) => {
   //fix with forEach or reduce, both with dicts
- return list.reduce(
+  return list.reduce(
     (letters: { [key: string]: number }, elem) => {
       const i = elem.name.charAt(0).toLocaleLowerCase();
       if (Object.keys(letters).includes(i)) {
